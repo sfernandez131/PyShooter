@@ -75,7 +75,7 @@ def main():
 					bullets.remove(r)
 					enemyBlocks.remove(block)
 					hit += 1
-					continue
+					continue 
 			if window.width <= 1920 and window.height <= 1080:
 				pg.draw.rect(mScrn, (255, 255, 255), r.rect)
 			else:
@@ -94,7 +94,7 @@ def main():
 					if playerX - playerSpeed < (window.left):
 						continue
 					playerX -= playerSpeed
-     
+    
 				if event.key == pg.K_d:
 					if playerX + 100 + playerSpeed > (window.right):
 						continue
@@ -116,9 +116,9 @@ def main():
 					if cycle >= 120:
 						effect.play()
 						if wideScreen:
-							bullets.append(Bullet(playerX + 25, playerY + 5, 0))
+							bullets.append(Bullet(rect1.center[0], rect1.y - 5, 0))
 						else:
-							bullets.append(Bullet(playerX + 25, playerY + 5, 1))
+							bullets.append(Bullet(rect1.center[0], rect1.y - 5, 1))
 						cycle = 0
 
 				# DEBUGGING KEYS
