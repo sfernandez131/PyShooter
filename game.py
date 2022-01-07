@@ -1,4 +1,3 @@
-#pylint:disable=C0103
 import pygame as pg
 
 class  Bullet:
@@ -16,9 +15,15 @@ def scoreDisp(score):
 pg.init()
 
 running = True
+wideScreen = False
+
 mScrn = pg.display.set_mode((0, 0))
 window = mScrn.get_rect()
-mScrn = pg.display.set_mode((0, window.bottom // 2))
+if window.width >= window.height:
+    mScrn = pg.display.set_mode((0, 0))
+    wideScreen = True
+else:
+	mScrn = pg.display.set_mode((0, window.bottom // 2))
 clock = pg.time.Clock()
 
 effect = pg.mixer.Sound('sound96.wav')
@@ -36,13 +41,16 @@ while running:
 	
 	scoreDisp(len(bullets))
 	
-	rect1 = pg.Rect(playerX, playerY, 100, 100)
+	rect1 = pg.Rect(playerX, playerY, 50, 50)
 	
 	for r in bullets:
 		if r.rY <= 0:
 			bullets.remove(r)
 			continue
-		pg.draw.rect(mScrn, (255, 255, 255), pg.Rect(r.bX, r.rY, 50, 50))
+		if window.width <= 1920 and window.height <= 1080:
+			pg.draw.rect(mScrn, (255, 255, 255), pg.Rect(r.bX, r.rY, 25, 25))
+		else:
+			pg.draw.rect(mScrn, (255, 255, 255), pg.Rect(r.bX, r.rY, 50, 50))
 		r.rY -= 18
 	
 	for event in pg.event.get():
@@ -50,6 +58,8 @@ while running:
 			running = False
 
 		if event.type == pg.KEYDOWN:
+			if event.key == pg.K_ESCAPE:
+				running = False
 			if event.key == pg.K_a:
 				if playerX - playerSpeed < (window.left):
 					continue
@@ -63,7 +73,10 @@ while running:
 					continue
 				playerY -= playerSpeed
 			if event.key == pg.K_s:
-				if playerY + 100 + playerSpeed > (window.bottom // 1.5):
+				
+				if playerY + 100 + playerSpeed > (window.bottom // 1.5) and not wideScreen:
+					continue
+				elif playerY + 100 + playerSpeed > window.bottom and wideScreen:
 					continue
 				playerY += playerSpeed
 
