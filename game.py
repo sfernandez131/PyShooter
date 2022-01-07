@@ -39,9 +39,9 @@ def main():
 		mScrn = pg.display.set_mode((0, window.bottom // 2))
 	clock = pg.time.Clock()
 
-	effect = pg.mixer.Sound('sound96.wav')
+	effects = [pg.mixer.Sound('sound96.wav')]
 
-	playerX = window.right // 2
+	playerX = 100
 	playerY = window.bottom // 1.6
 	playerSpeed = 100
 
@@ -80,7 +80,7 @@ def main():
 				pg.draw.rect(mScrn, (255, 255, 255), r.rect)
 			else:
 				pg.draw.rect(mScrn, (255, 255, 255), r.rect)
-			r.rect.y -= 18
+			r.rect.y -= 20
 		
 		for event in pg.event.get():
 			if event.type == pg.QUIT:
@@ -114,11 +114,11 @@ def main():
      
 				if event.key == pg.K_j:
 					if cycle >= 120:
-						effect.play()
+						effects[0].play()
 						if wideScreen:
-							bullets.append(Bullet(rect1.center[0], rect1.y - 5, 0))
+							bullets.append(Bullet(rect1.left, rect1.y - 5, 0))
 						else:
-							bullets.append(Bullet(rect1.center[0], rect1.y - 5, 1))
+							bullets.append(Bullet(rect1.left, rect1.y - 5, 1))
 						cycle = 0
 
 				# DEBUGGING KEYS
