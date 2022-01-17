@@ -173,7 +173,7 @@ def main():
 					
 		pg.draw.rect(mScrn, (255, 0, 0), rect1)
 		
-		if remBullets == 0 and len(enemyBlocks) > 0:
+		if remBullets == 0 and len(bullets) <= 0 and  len(enemyBlocks) > 0:
 			mScrn.fill((0,0,0))
 			gameOverDisp(mScrn)
 		
